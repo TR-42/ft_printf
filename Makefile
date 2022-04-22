@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/22 01:07:12 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/22 20:36:52 by kfujita          ###   ########.fr        #
+#    Updated: 2022/04/22 22:18:08 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME	=	libftprintf.a
 
 SRC_DIR	=	./ft_printf
-SRCS	=	$(SRC_DIR)/ft_printf.c \
+SRCS	=	ft_printf.c \
 
 OBJ_DIR	=	./obj
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -32,7 +32,7 @@ all:	$(NAME)
 $(NAME):	$(OBJS) $(LIBFT)
 	ar r $@ $^
 
-$(OBJ_DIR)/%.o:	%.c
+$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $^
 
