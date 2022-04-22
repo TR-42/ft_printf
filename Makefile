@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/22 01:07:12 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/22 22:18:08 by kfujita          ###   ########.fr        #
+#    Updated: 2022/04/23 00:13:46 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ CC		=	cc
 all:	$(NAME)
 
 $(NAME):	$(OBJS) $(LIBFT)
-	ar r $@ $^
+	cp $(LIBFT) ./$@
+	ar r $@ $(OBJS)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
