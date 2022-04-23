@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 00:19:18 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 03:47:25 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 04:38:32 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <limits.h>
 #include "ft_printf_local.h"
 
-t_list	*parse_format(const char *fmt, va_list args)
+t_list	*parse_format(const char *fmt, va_list *args)
 {
 	t_list	*p_ret;
 	size_t	ret_len;

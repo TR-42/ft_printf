@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 00:04:40 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 03:50:26 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 05:19:14 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef struct s_printf_fmt
 	char	header[3];
 	t_uint8	head_len;
 	int		str_len;
-	int		opt_num;
+	int		min_len;
+	int		max_len;
 
 	bool	f_upper:	1;
 	bool	f_minus:	1;
@@ -64,15 +65,15 @@ typedef struct s_printf_fmt
 
 int		get_numstr_base(char *buf, size_t num, int base, bool is_upper);
 
-t_list	*parse_format(const char *fmt, va_list args);
+t_list	*parse_format(const char *fmt, va_list *args);
 
-t_fmt	*parse_opt(size_t *len, char **fmt, va_list args);
+t_fmt	*parse_opt(size_t *len, char **fmt, va_list *args);
 t_fmt	*check_no_opt_str(size_t *len, char **fmt, t_fmt *p_ret);
 
 void	parse_opt_flags(char **fmt, t_fmt *p_ret);
-bool	parse_opt_c_str(char fmt, va_list args, t_fmt *p_ret);
-bool	parse_opt_num(char fmt, va_list args, t_fmt *p_ret);
-bool	parse_opt_ptr(char fmt, va_list args, t_fmt *p_ret);
+bool	parse_opt_c_str(char fmt, va_list *args, t_fmt *p_ret);
+bool	parse_opt_num(char fmt, va_list *args, t_fmt *p_ret);
+bool	parse_opt_ptr(char fmt, va_list *args, t_fmt *p_ret);
 
 bool	is_valid_conv_char(char c);
 bool	is_valid_flag_char(char c);

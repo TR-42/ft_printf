@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_opt_bonus.c                                  :+:      :+:    :+:   */
+/*   parse_opt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 01:27:16 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 05:19:24 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 05:19:41 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@ t_fmt	*parse_opt(size_t *len, char **fmt, va_list *args)
 	t_fmt	*p_ret;
 
 	*fmt += 1;
-	if (!is_valid_conv_char(**fmt)
-		&& !is_valid_flag_char(**fmt))
+	if (!is_valid_conv_char(**fmt))
 		return (check_no_opt_str(len, fmt, NULL));
 	p_ret = ft_calloc(1, sizeof(t_fmt));
 	if (p_ret == NULL)
 		return (p_ret);
-	while (is_valid_flag_char(**fmt))
-		parse_opt_flags(fmt, p_ret);
 	if (!(parse_opt_c_str(**fmt, args, p_ret)
 			|| parse_opt_num(**fmt, args, p_ret)
 			|| parse_opt_ptr(**fmt, args, p_ret)))

@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 02:42:54 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 03:30:35 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 05:10:57 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static int	calc_num_len(long num, int base, t_fmt *p_ret)
 		p_ret->header[0] = '+';
 	else if (p_ret->f_space)
 		p_ret->header[0] = ' ';
+	p_ret->head_len = ft_strlen(p_ret->header);
 	if (num == 0)
 	{
 		p_ret->data.c = '0';
 		return (1);
 	}
-	p_ret->head_len = ft_strlen(p_ret->header);
 	return (get_numstr_base(buf, num, base, p_ret->f_upper));
 }
 
@@ -56,16 +56,16 @@ static bool	parse_num_type(char fmt, t_fmt *p_ret)
 	return (true);
 }
 
-bool	parse_opt_num(char fmt, va_list args, t_fmt *p_ret)
+bool	parse_opt_num(char fmt, va_list *args, t_fmt *p_ret)
 {
 	if (!parse_num_type(fmt, p_ret))
 		return (false);
 	if (fmt == 'X')
 		p_ret->f_upper = true;
 	if (p_ret->type == INT_10BASE)
-		p_ret->data.s_digit = va_arg(args, int);
+		p_ret->data.s_digit = va_arg(*args, int);
 	else
-		p_ret->data.s_digit = va_arg(args, unsigned int);
+		p_ret->data.s_digit = va_arg(*args, unsigned int);
 	if (p_ret->type == INT_10BASE)
 		p_ret->str_len = calc_num_len(p_ret->data.s_digit, 10, p_ret);
 	else if (p_ret->type == UINT_10BASE)

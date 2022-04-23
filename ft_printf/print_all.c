@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 01:13:22 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 04:13:48 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 06:06:10 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,81 @@
 // STDOUT_FILENO
 #define DST_FD (1)
 
+static int	calc_pad_zero_len(t_fmt *fmt, int *pad_len, int *zero_len)
+{
+	int	expected_print_len;
+
+	expected_print_len = ft_max(fmt->min_len,
+			ft_max(fmt->max_len, fmt->str_len) + fmt->head_len);
+	*pad_len = expected_print_len - fmt->str_len - fmt->head_len;
+	*zero_len = 0;
+	if (fmt->f_dot)
+	{
+		*zero_len = ft_max(0, fmt->max_len - fmt->str_len);
+		*pad_len = ft_max(0, *pad_len - *zero_len);
+	}
+	else if (!(fmt->f_zero) && fmt->f_zero)
+	{
+		*zero_len = ft_max(0, fmt->min_len - fmt->str_len);
+		*pad_len = 0;
+	}
+	return (expected_print_len);
+}
+
 static int	print_buf(t_fmt *fmt)
+{
+	int	pad_len;
+	int	zero_len;
+	int	print_len;
+
+	print_len = calc_pad_zero_len(fmt, &pad_len, &zero_len);
+	while (!(fmt->f_minus) && pad_len-- > 0)
+		write(DST_FD, " ", 1);
+	write(DST_FD, fmt->header, fmt->head_len);
+	while (zero_len-- > 0)
+		write(DST_FD, "0", 1);
+	write(DST_FD, fmt->data.str_buf, fmt->str_len);
+	while (fmt->f_minus && pad_len-- > 0)
+		write(DST_FD, " ", 1);
+	return (print_len);
+}
+
+static int	print_char(t_fmt *fmt)
 {
 	int		pad_len;
 
-	pad_len = fmt->opt_num - fmt->str_len - fmt->head_len;
+	pad_len = fmt->min_len - 1;
 	if (fmt->f_minus || !(fmt->f_zero))
 	{
 		while (!(fmt->f_minus) && pad_len-- > 0)
 			write(DST_FD, " ", 1);
-		write(DST_FD, fmt->header, fmt->head_len);
-		write(DST_FD, fmt->data.str_buf, fmt->str_len);
+		write(DST_FD, fmt->data.str_buf, 1);
 		while (fmt->f_minus && pad_len-- > 0)
 			write(DST_FD, " ", 1);
 	}
 	else
 	{
-		write(DST_FD, fmt->header, fmt->head_len);
 		while (pad_len-- > 0)
 			write(DST_FD, "0", 1);
-		write(DST_FD, fmt->data.str_buf, fmt->str_len);
+		write(DST_FD, fmt->data.str_buf, 1);
 	}
-	return (ft_max(fmt->str_len + fmt->head_len, fmt->opt_num));
+	return (ft_max(fmt->str_len + fmt->head_len, fmt->min_len));
 }
 
 static int	print_str(t_fmt *fmt)
 {
-	int		pad_len;
+	int	pad_len;
+	int	print_len;
 
-	pad_len = fmt->opt_num - fmt->str_len;
+	print_len = fmt->str_len;
+	if (fmt->f_dot)
+		print_len = ft_min(fmt->max_len, print_len);
+	pad_len = fmt->min_len - print_len;
 	if (fmt->f_minus || !(fmt->f_zero))
 	{
 		while (!(fmt->f_minus) && pad_len-- > 0)
 			write(DST_FD, " ", 1);
-		write(DST_FD, fmt->data.str, fmt->str_len);
+		write(DST_FD, fmt->data.str, print_len);
 		while (fmt->f_minus && pad_len-- > 0)
 			write(DST_FD, " ", 1);
 	}
@@ -57,9 +98,9 @@ static int	print_str(t_fmt *fmt)
 	{
 		while (pad_len-- > 0)
 			write(DST_FD, "0", 1);
-		write(DST_FD, fmt->data.str, fmt->str_len);
+		write(DST_FD, fmt->data.str, print_len);
 	}
-	return (ft_max(fmt->str_len, fmt->opt_num));
+	return (ft_max(print_len, fmt->min_len));
 }
 
 int	print_all(t_list *list)
@@ -75,6 +116,8 @@ int	print_all(t_list *list)
 		tmp = 0;
 		if (data->type == STR)
 			tmp = print_str(data);
+		else if (data->type == CHAR)
+			tmp = print_char(data);
 		else
 			tmp = print_buf(data);
 		written_count += tmp;

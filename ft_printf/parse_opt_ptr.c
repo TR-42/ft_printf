@@ -6,20 +6,20 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 02:46:19 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 03:32:12 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 04:39:16 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_local.h"
 
-bool	parse_opt_ptr(char fmt, va_list args, t_fmt *p_ret)
+bool	parse_opt_ptr(char fmt, va_list *args, t_fmt *p_ret)
 {
 	size_t	num;
 
 	if (fmt != 'p')
 		return (false);
 	p_ret->type = PTR;
-	num = (size_t)va_arg(args, void *);
+	num = (size_t)va_arg(*args, void *);
 	p_ret->header[0] = '0';
 	p_ret->header[1] = 'x';
 	p_ret->head_len = 2;

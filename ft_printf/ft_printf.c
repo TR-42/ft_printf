@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 21:58:25 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 03:52:13 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 04:39:55 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_printf(const char *format, ...)
 	else if (format[0] != '%' && format[1] == '\0')
 		return (write(STDOUT_FILENO, format, 1));
 	va_start(args, format);
-	list = parse_format(format, args);
+	list = parse_format(format, &args);
 	va_end(args);
 	if (list == NULL)
 		return (-1);

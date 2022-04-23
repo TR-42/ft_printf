@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/22 01:07:12 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/24 03:49:50 by kfujita          ###   ########.fr        #
+#    Updated: 2022/04/24 04:59:37 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,15 @@ SRCS	=	check_no_opt_str.c \
 			print_all.c \
 			util.c \
 
-SRCS_B	=	$(SRCS) \
-			is_valid_flag_char_bonus.c \
+SRCS_M	=	parse_opt.c
+
+SRCS_B	=	is_valid_flag_char_bonus.c \
 			parse_opt_bonus.c \
 			parse_opt_flags_bonus.c \
 
 OBJ_DIR	=	./obj
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
+OBJS_M	=	$(addprefix $(OBJ_DIR)/, $(SRCS_M:.c=.o))
 OBJS_B	=	$(addprefix $(OBJ_DIR)/, $(SRCS_B:.c=.o))
 
 LIBFT_DIR	=	./libft
@@ -41,9 +43,18 @@ CFLAGS	=	-Wall -Wextra -Werror -I $(LIBFT_DIR) -I $(SRC_DIR)
 
 CC		=	cc
 
+ifdef WITH_BONUS
+OBJS += $(OBJS_B)
+OBJS_TO_DEL	=	$(OBJS_M)
+else
+OBJS += $(OBJS_M)
+OBJS_TO_DEL	=	$(OBJS_B)
+endif
+
 all:	$(NAME)
 
 $(NAME):	$(OBJS) $(LIBFT)
+	cp $(LIBFT) ./$(NAME)
 	ar r $@ $(OBJS)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
@@ -52,14 +63,13 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 
 $(LIBFT):
 	$(LIBFT_MAKE)
-	cp $(LIBFT) ./$(NAME)
 
-bonus:	$(OBJS_B) $(LIBFT)
-	ar r $(NAME) $(OBJS_B)
+bonus:
+	make WITH_BONUS=1
 
 clean:
 	$(LIBFT_MAKE) clean
-	rm -f $(OBJS)
+	rm -f $(OBJS_M) $(OBJS_B) $(OBJS)
 	rm -d $(OBJ_DIR) || exit 0
 
 fclean:	clean

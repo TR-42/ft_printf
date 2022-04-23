@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 03:07:49 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 03:46:25 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 05:19:34 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ t_fmt	*check_no_opt_str(size_t *len, char **fmt, t_fmt *p_ret)
 		return (NULL);
 	}
 	p_ret->str_len = (int)str_len;
-	*len += ft_max(p_ret->opt_num, p_ret->str_len);
+	*len += ft_max(p_ret->min_len, p_ret->str_len);
 	return (p_ret);
 }
