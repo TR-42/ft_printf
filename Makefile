@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/22 01:07:12 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/24 04:59:37 by kfujita          ###   ########.fr        #
+#    Updated: 2022/04/24 06:19:37 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ LIBFT_DIR	=	./libft
 LIBFT	=	$(LIBFT_DIR)/libft.a
 LIBFT_MAKE	=	make -C $(LIBFT_DIR)
 
-CFLAGS	=	-Wall -Wextra -Werror -I $(LIBFT_DIR) -I $(SRC_DIR)
+CFLAGS	=	-Wall -Wextra -Werror
+INCLUDES	=	-I $(LIBFT_DIR) -I $(SRC_DIR)
 
 CC		=	cc
 
@@ -59,7 +60,7 @@ $(NAME):	$(OBJS) $(LIBFT)
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $^
+	$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $^
 
 $(LIBFT):
 	$(LIBFT_MAKE)
