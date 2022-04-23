@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 03:37:57 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 05:27:27 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 07:39:39 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static void	parse_opt_flag_dot(char **fmt, t_fmt *p_ret)
 
 	*fmt += 1;
 	p_ret->f_dot = true;
+	p_ret->max_len = 0;
+	if (!ft_isdigit(**fmt))
+		return ;
 	tmp = ft_strtol(*fmt, fmt, 10);
 	if (tmp > (long)INT_MAX)
 		p_ret->max_len = INT_MAX;
