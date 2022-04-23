@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/22 01:07:12 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/24 06:19:37 by kfujita          ###   ########.fr        #
+#    Updated: 2022/04/24 07:12:33 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,11 +52,18 @@ OBJS += $(OBJS_M)
 OBJS_TO_DEL	=	$(OBJS_B)
 endif
 
-all:	$(NAME)
+all:	MAKE_BEFORE $(NAME)
 
 $(NAME):	$(OBJS) $(LIBFT)
 	cp $(LIBFT) ./$(NAME)
 	ar r $@ $(OBJS)
+
+MAKE_BEFORE:
+ifdef WITH_BONUS
+	@if [ -e "$(NAME)" ] && [ "$(shell nm ./libftprintf.a | grep _bonus)" = "" ]; then rm -f $(NAME) ; fi;
+else
+	@if [ -e "$(NAME)" ] && [ "$(shell nm ./libftprintf.a | grep _bonus)" != "" ]; then rm -f $(NAME) ; fi;
+endif
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
@@ -79,4 +86,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY:	clean
+.PHONY:	clean MAKE_BEFORE
