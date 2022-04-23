@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 01:13:22 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 06:24:27 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 07:37:51 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	calc_pad_zero_len(t_fmt *fmt, int *pad_len, int *zero_len)
 {
 	int	expected_print_len;
 
+	if (fmt->f_dot && fmt->max_len == 0 && fmt->data.c == '0')
+		fmt->str_len = 0;
 	expected_print_len = ft_max(fmt->min_len,
 			ft_max(fmt->max_len, fmt->str_len) + fmt->head_len);
 	*pad_len = expected_print_len - fmt->str_len - fmt->head_len;
