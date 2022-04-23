@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 01:13:22 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 06:06:10 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 06:24:27 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	calc_pad_zero_len(t_fmt *fmt, int *pad_len, int *zero_len)
 		*zero_len = ft_max(0, fmt->max_len - fmt->str_len);
 		*pad_len = ft_max(0, *pad_len - *zero_len);
 	}
-	else if (!(fmt->f_zero) && fmt->f_zero)
+	else if (!(fmt->f_minus) && fmt->f_zero)
 	{
-		*zero_len = ft_max(0, fmt->min_len - fmt->str_len);
+		*zero_len = ft_max(0, fmt->min_len - fmt->str_len - fmt->head_len);
 		*pad_len = 0;
 	}
 	return (expected_print_len);
