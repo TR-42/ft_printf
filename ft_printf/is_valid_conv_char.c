@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_opt_flags.c                                  :+:      :+:    :+:   */
+/*   is_valid_conv_char.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 03:37:57 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/23 03:47:36 by kfujita          ###   ########.fr       */
+/*   Created: 2022/04/23 22:19:44 by kfujita           #+#    #+#             */
+/*   Updated: 2022/04/23 22:21:00 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_local.h"
 
-// TODO: implement this func
-void	parse_opt_flags(char **fmt, t_fmt *p_ret)
+bool	is_valid_conv_char(char c)
 {
+	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'u'
+		|| c == 'x' || c == 'X' || c == '%');
 }

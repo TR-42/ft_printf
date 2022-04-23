@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 00:04:40 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/23 23:01:15 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 03:50:26 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@
 # include <stdarg.h>
 # include <libft.h>
 
-# define STR_BUF_LEN (17)
+// 2 + 16 + 1
+# define STR_BUF_LEN (19)
+
+typedef unsigned char	t_uint8;
 
 typedef enum e_dtype
 {
-	CHAR,
 	STR,
+	CHAR,
 	PTR,
 	INT_10BASE,
 	UINT_10BASE,
@@ -45,6 +48,8 @@ typedef struct s_printf_fmt
 {
 	t_dtype	type;
 	t_data	data;
+	char	header[3];
+	t_uint8	head_len;
 	int		str_len;
 	int		opt_num;
 
@@ -57,28 +62,21 @@ typedef struct s_printf_fmt
 	bool	f_plus:		1;
 }	t_fmt;
 
-const char *const	g_NULLSTR = "(null)";
-
-int		print_c(t_fmt *fmt);
-int		print_s(t_fmt *fmt);
-int		print_p(t_fmt *fmt);
-int		print_d(t_fmt *fmt);
-int		print_i(t_fmt *fmt);
-int		print_u(t_fmt *fmt);
-int		print_x(t_fmt *fmt);
-int		print_X(t_fmt *fmt);
-int		print_percent(t_fmt *fmt);
-
 int		get_numstr_base(char *buf, size_t num, int base, bool is_upper);
 
-t_list	*parse_format(char *fmt, va_list args);
+t_list	*parse_format(const char *fmt, va_list args);
 
 t_fmt	*parse_opt(size_t *len, char **fmt, va_list args);
+t_fmt	*check_no_opt_str(size_t *len, char **fmt, t_fmt *p_ret);
 
 void	parse_opt_flags(char **fmt, t_fmt *p_ret);
-bool	parse_opt_c_str(size_t *len, char **fmt, va_list args, t_fmt *p_ret);
-bool	parse_opt_num(size_t *len, char **fmt, va_list args, t_fmt *p_ret);
-bool	parse_opt_ptr(size_t *len, char **fmt, va_list args, t_fmt *p_ret);
+bool	parse_opt_c_str(char fmt, va_list args, t_fmt *p_ret);
+bool	parse_opt_num(char fmt, va_list args, t_fmt *p_ret);
+bool	parse_opt_ptr(char fmt, va_list args, t_fmt *p_ret);
 
+bool	is_valid_conv_char(char c);
+bool	is_valid_flag_char(char c);
+
+int		print_all(t_list *list);
 
 #endif
