@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 00:04:40 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/23 03:45:59 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/23 23:01:15 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,5 @@ bool	parse_opt_c_str(size_t *len, char **fmt, va_list args, t_fmt *p_ret);
 bool	parse_opt_num(size_t *len, char **fmt, va_list args, t_fmt *p_ret);
 bool	parse_opt_ptr(size_t *len, char **fmt, va_list args, t_fmt *p_ret);
 
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
 
 #endif
