@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 05:36:53 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/18 07:00:54 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/23 22:45:09 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static size_t	count_char(const char *s, char c)
 	return (c_count);
 }
 
-int	check_and_handle_alloc_error(char **p_p_ret, size_t p_p_ret_index)
+static int	check_and_handle_alloc_error(char **p_p_ret, size_t p_p_ret_index)
 {
 	size_t	current_index;
 

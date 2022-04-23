@@ -6,14 +6,11 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 14:51:29 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/10 14:53:58 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/23 22:36:42 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	ft_isupper(int c)
-{
-	return ('A' <= c && c <= 'Z');
-}
+#include "libft.h"
 
 int	ft_tolower(int c)
 {

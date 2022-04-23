@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 13:37:46 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/20 00:43:31 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/23 22:53:09 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,21 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+// Additional Functions (from libc)
+long	ft_strtol(const char *str, char **endptr, int base);
+char	*ft_strndup(const char *s1, size_t n);
+size_t	ft_strnlen(const char *str, size_t max_len);
+
+// Additional Functions (original)
+int		ft_min(int a, int b);
+long	ft_minl(long a, long b);
+size_t	ft_minp(size_t a, size_t b);
+double	ft_minf(double a, double b);
+
+int		ft_max(int a, int b);
+long	ft_maxl(long a, long b);
+size_t	ft_maxp(size_t a, size_t b);
+double	ft_maxf(double a, double b);
 
 #endif

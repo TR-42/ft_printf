@@ -6,7 +6,7 @@
 #    By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/19 06:23:32 by kfujita           #+#    #+#              #
-#    Updated: 2022/04/21 21:09:42 by kfujita          ###   ########.fr        #
+#    Updated: 2022/04/23 22:52:58 by kfujita          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,9 +57,16 @@ SRCS04	=	ft_lstnew.c \
 			ft_lstiter.c \
 			ft_lstmap.c \
 
+SRCS_AD	=	ft_strtol.c \
+			ft_strndup.c \
+			ft_strnlen.c \
+			ft_min.c \
+			ft_max.c \
+
 OBJ_DIR	=	./obj
 OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 OBJS04	=	$(addprefix $(OBJ_DIR)/, $(SRCS04:.c=.o))
+OBJS_AD	=	$(addprefix $(OBJ_DIR)/, $(SRCS_AD:.c=.o))
 
 CFLAGS	=	-Wall -Wextra -Werror
 
@@ -67,7 +74,7 @@ CC		=	cc
 
 all:	$(NAME)
 
-$(NAME):	$(OBJS) $(OBJS04)
+$(NAME):	$(OBJS) $(OBJS04) $(OBJS_AD)
 	ar r $@ $^
 
 $(OBJ_DIR)/%.o:	%.c
@@ -77,7 +84,7 @@ $(OBJ_DIR)/%.o:	%.c
 bonus:	$(NAME)
 
 clean:
-	rm -f $(OBJS) $(OBJS04)
+	rm -f $(OBJS) $(OBJS04) $(OBJS_AD)
 	rm -d $(OBJ_DIR) || exit 0
 
 fclean:	clean
