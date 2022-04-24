@@ -6,7 +6,7 @@
 /*   By: kfujita <kfujita@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 02:42:54 by kfujita           #+#    #+#             */
-/*   Updated: 2022/04/24 05:10:57 by kfujita          ###   ########.fr       */
+/*   Updated: 2022/04/24 09:25:55 by kfujita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static int	calc_num_len(long num, int base, t_fmt *p_ret)
 		p_ret->header[0] = '-';
 		num *= -1;
 	}
-	else if (p_ret->f_plus)
+	else if (p_ret->f_plus && p_ret->type != UINT_10BASE)
 		p_ret->header[0] = '+';
-	else if (p_ret->f_space)
+	else if (p_ret->f_space && p_ret->type != UINT_10BASE)
 		p_ret->header[0] = ' ';
 	p_ret->head_len = ft_strlen(p_ret->header);
 	if (num == 0)
